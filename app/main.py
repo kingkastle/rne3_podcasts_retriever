@@ -26,5 +26,6 @@ def form_submitted():
                            artista=string_busqueda,
                            total=total)
 
+
 if __name__ == "__main__":
     app.run()
