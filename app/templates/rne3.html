@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>rne3 buscador</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/map.js') }}"></script>
+</head>
+<body>
+
+<h1>Encuentra tus artistas favoritos en Radio3</h1>
+<div class="buscador" >
+    <img src="https://f4.bcbits.com/img/a0083212747_5.jpg" alt="Avatar" style="width:200px">
+        <form class="form-inline" method="POST" action="{{url_for('form_submitted')}}" >
+                <p>Busca un artista: <input type="text" name="artista" placeholder="Billie Holiday"></p>
+                <p><input type="submit" value="Disfruta!"></p>
+        </form>
+</div>
+<!-- follow me template -->
+<div class="made-with-love">
+  Hecho con
+  <i>♥</i> por
+  <a target="_blank" href="https://codepen.io/nikhil8krishnan">Rafael Castillo</a>
+</div>
+
+
+</body>
+</html>

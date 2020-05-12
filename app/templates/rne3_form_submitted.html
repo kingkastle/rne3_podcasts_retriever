@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>rne3 buscador</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/map.js') }}"></script>
+</head>
+<body>
+
+<h1>Encuentra tus artistas favoritos en Radio3</h1>
+<div class="buscador" >
+    <img src="https://f4.bcbits.com/img/a0083212747_5.jpg" alt="Avatar" style="width:200px">
+</div>
+
+<!--for demo wrap-->
+  <h1>{{ total }} sesiones encontradas que incluyen a {{ artista }}</h1>
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th>Programa</th>
+          <th>Sesión</th>
+          <th class="descripcion">Descripción</th>
+          <th>Fecha de Publicación</th>
+          <th>Duración</th>
+          <th>Enlace</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+        {% for programa in resultados.keys() %}
+            {% for sesion in resultados[programa] %}
+
+                <tr>
+                    <td>
+                     <a href="{{ programas[programa]['url'] }}" target="_blank"> {{ programa }} </a>
+                    </td>
+                    <td>{{ sesion['nombre'] }}</td>
+                    <td class="descripcion">{{ sesion['descripcion'] }}</td>
+                    <td>{{ sesion['fecha_publicacion'] }}</td>
+                    <td>{{ sesion['duracion'] }}</td>
+                    <td>
+                     <a href="{{ sesion['enlace_mp3'] }}" target="_blank"> link sesion </a>
+                    </td>
+                </tr>
+            {% endfor %}
+    {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- follow me template -->
+<div class="made-with-love">
+  Hecho con
+  <i>♥</i> por
+  <a target="_blank" href="https://codepen.io/nikhil8krishnan">Rafael Castillo</a>
+</div>
+
+
+</body>
+</html>
