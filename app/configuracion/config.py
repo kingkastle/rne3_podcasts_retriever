@@ -7,5 +7,5 @@ rne3web = {'web_url': 'https://www.rtve.es/alacarta/rne/radio-3/',
            'lista_programas': {'css_selector': '#tab2mini > div:nth-child(1)'},
            'num_programas': {'css_selector': '#tabladecontenidos > div:nth-child(1) > h2:nth-child(3) > span:nth-child(1)'}
            }
-backup_file_path = '/app/_data/rne3_data.pkl'
+backup_file_path = '/app/rne3_data.pkl'
 
