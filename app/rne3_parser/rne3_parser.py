@@ -29,6 +29,7 @@ class RNE3parser(Navigator):
     def _load(self):
         # pwd = os.getcwd()  # when running on local
         pwd = ''  # when running on heroku
+        print(os.getcwd())
         print(pwd + self.backup_file_path)
         print(os.path.isfile(pwd + self.backup_file_path))
         if os.path.isfile(pwd + self.backup_file_path):
