@@ -27,8 +27,9 @@ class RNE3parser(Navigator):
         self.informacion_programas = self._load()
 
     def _load(self):
-        if os.path.isfile(self.backup_file_path):
-            return pickle.load(open(self.backup_file_path, "rb"))
+        pwd = os.getcwd()
+        if os.path.isfile(pwd + self.backup_file_path):
+            return pickle.load(open(pwd + self.backup_file_path, "rb"))
         else:
             return {}
 

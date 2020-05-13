@@ -4,13 +4,13 @@ from app.rne3_parser.query_rne3 import query_results
 
 app = Flask(__name__)
 
-# Linux: Ctrl+Shift+R
 
-rne3_data = RNE3parser()
+# rne3_data = RNE3parser()
+# Linux: Ctrl+Shift+R
 
 @app.route('/', methods=['GET'])
 def rne3_form():
-    """ Paguina de bienvenida """
+    """ Pagina de bienvenida """
 
     return render_template('rne3.html')
 
@@ -18,6 +18,7 @@ def rne3_form():
 @app.route('/resultados', methods=['POST'])
 def form_submitted():
     """ Lanzar script para obtener ficheros"""
+    rne3_data = RNE3parser()
     string_busqueda = request.form.get('artista')
     resultados = query_results(rne3_data, string_busqueda)
     total = sum([len(resultados[x]) for x in resultados.keys()])
