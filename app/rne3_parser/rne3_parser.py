@@ -27,9 +27,8 @@ class RNE3parser(Navigator):
         self.informacion_programas = self._load()
 
     def _load(self):
-        pwd = os.getcwd()
-        print(os.path.isfile(pwd + self.backup_file_path))
-        print((pwd + self.backup_file_path))
+        # pwd = os.getcwd()  # when running on local
+        pwd = ''  # when running on heroku
         if os.path.isfile(pwd + self.backup_file_path):
             return pickle.load(open(pwd + self.backup_file_path, "rb"))
         else:
