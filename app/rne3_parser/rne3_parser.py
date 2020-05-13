@@ -28,6 +28,8 @@ class RNE3parser(Navigator):
 
     def _load(self):
         pwd = os.getcwd()
+        print(os.path.isfile(pwd + self.backup_file_path))
+        print((pwd + self.backup_file_path))
         if os.path.isfile(pwd + self.backup_file_path):
             return pickle.load(open(pwd + self.backup_file_path, "rb"))
         else:

@@ -19,6 +19,6 @@ def query_results(rne3, string_busqueda):
 if __name__ == "__main__":
 
     rne3_data = RNE3parser()
-    string_busqueda = 'billie holiday'
-    resultados = query_results(rne3_data, string_busqueda)
-    print("OK")
+    busqueda = 'billie holiday'
+    resultados = query_results(rne3_data, busqueda)
+
