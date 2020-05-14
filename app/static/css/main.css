@@ -36,7 +36,7 @@ th{
   padding: 20px 15px;
   text-align: left;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 13px;
   color: #f50c0c;
   text-transform: uppercase;
 }
@@ -45,7 +45,7 @@ td{
   text-align: left;
   vertical-align:middle;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 13px;
   color: #ec0303;
   border-bottom: solid 1px rgba(255,255,255,0.1);
 }
@@ -142,7 +142,7 @@ input#search-bar{
   padding: 20px 15px;
   text-align: left;
   font-weight: 500;
-  font-size: 26px;
+  font-size: 20px;
   color: #f50c0c;
   text-transform: uppercase;
   }
@@ -151,7 +151,7 @@ input#search-bar{
     text-align: left;
     vertical-align:middle;
     font-weight: 300;
-    font-size: 26px;
+    font-size: 20px;
     color: #ec0303;
     border-bottom: solid 1px rgba(255,255,255,0.1);
   }
