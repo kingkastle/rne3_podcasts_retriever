@@ -9,3 +9,13 @@ rne3web = {'web_url': 'https://www.rtve.es/alacarta/rne/radio-3/',
            }
 backup_file_path = '/app/rne3_data.pkl'
 
+# local postgres configuration:
+postgres = {
+    'user': 'postgres',
+    'pw': '',
+    'db': 'rne3',
+    'host': 'localhost',
+    'port': '5432',
+}
+
+
