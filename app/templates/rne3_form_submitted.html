@@ -18,11 +18,10 @@
       <thead>
         <tr>
           <th>Programa</th>
-          <th>Sesión</th>
+          <th>Sesión</th><th>Enlace</th>
           <th class="descripcion">Descripción</th>
           <th>Fecha de Publicación</th>
           <th>Duración</th>
-          <th>Enlace</th>
         </tr>
       </thead>
     </table>
@@ -35,15 +34,17 @@
 
                 <tr>
                     <td>
-                     <a href="{{ programas[programa]['url'] }}" target="_blank"> {{ programa }} </a>
+                     <a href="{{ programas[programa]['url'] }}" target="_blank"> {{ programa.upper() }} </a>
                     </td>
                     <td>{{ sesion['nombre'] }}</td>
+                    <td>
+                        <a href="{{ sesion['enlace_mp3'] }}" target="_blank">
+                            <img src="{{ url_for('static', filename='img/video-play-48.png') }}">
+                        </a>
+                    </td>
                     <td class="descripcion">{{ sesion['descripcion'] }}</td>
                     <td>{{ sesion['fecha_publicacion'] }}</td>
                     <td>{{ sesion['duracion'] }}</td>
-                    <td>
-                     <a href="{{ sesion['enlace_mp3'] }}" target="_blank"> link sesion </a>
-                    </td>
                 </tr>
             {% endfor %}
     {% endfor %}

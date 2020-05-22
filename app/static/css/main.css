@@ -53,6 +53,11 @@ td{
   border-bottom: solid 1px rgba(255,255,255,0.1);
 }
 
+a {
+  color: white;
+  font-size: 13px;
+}
+
 html {
   background: url(/static/img/rne3_mosaico2.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
