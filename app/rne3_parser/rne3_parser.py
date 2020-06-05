@@ -29,7 +29,7 @@ class RNE3parser(Navigator):
         if os.path.isfile(self.backup_file_path):
             return pickle.load(open(self.backup_file_path, "rb"))
         else:
-            print("New file generated...")
+            print("No backup file identified, new file generated...")
             return {}
 
     def _save_rne3_data(self):
