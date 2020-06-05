@@ -26,3 +26,13 @@ else:
     postgres_string = 'postgres://khsdgjiougdhgp:4f3049a6b8fc8c59ccb850a67c7d9fc2c01f637254ddc2ba785e8a8ed9822f0a@ec2-46-137-84-140.eu-west-1.compute.amazonaws.com:5432/da1fo9uv5r5kba'
 
 
+# local postgres configuration:
+postgres = {
+    'user': 'postgres',
+    'pw': '',
+    'db': 'rne3',
+    'host': 'localhost',
+    'port': '5432',
+}
+
+
