@@ -18,7 +18,8 @@
       <thead>
         <tr>
           <th>Programa</th>
-          <th>Sesión</th><th>Enlace</th>
+          <th>Sesión</th>
+          <th></th>
           <th class="descripcion">Descripción</th>
           <th>Fecha de Publicación</th>
           <th>Duración</th>
@@ -26,7 +27,7 @@
       </thead>
     </table>
   </div>
-  <div class="tbl-content">
+  <div class="tbl-content" style="overflow-x:auto;">
     <table cellpadding="0" cellspacing="0" border="0">
       <tbody>
         {% for programa in resultados.keys() %}
@@ -37,9 +38,9 @@
                      <a href="{{ programas[programa]['url'] }}" target="_blank"> {{ programa.upper() }} </a>
                     </td>
                     <td>{{ sesion['nombre'] }}</td>
-                    <td>
+                    <td style="text-align: center;">
                         <a href="{{ sesion['enlace_mp3'] }}" target="_blank">
-                            <img src="{{ url_for('static', filename='img/video-play-48.png') }}">
+                            <img src="{{ url_for('static', filename='img/play.png') }}" width="40px">
                         </a>
                     </td>
                     <td class="descripcion">{{ sesion['descripcion'] }}</td>
