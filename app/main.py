@@ -25,6 +25,7 @@ def form_submitted():
     """ Lanzar script para obtener ficheros"""
     rne3_data = RNE3parser()
     string_busqueda = request.form.get('artista')
+    print(string_busqueda, len(rne3_data.informacion_programas))
     resultados = query_results(rne3_data, string_busqueda)
     total = sum([len(resultados[x]) for x in resultados.keys()])
     now = datetime.now()
