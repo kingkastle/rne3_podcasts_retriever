@@ -1,4 +1,4 @@
-LOCAL_CONFIG = True
+LOCAL_CONFIG = False
 
 rne3web = {'web_url': 'https://www.rtve.es/alacarta/rne/radio-3/',
            'patron_programas_audios_re': r"https://www.rtve.es/alacarta/audios/(?:[a-zA-Z]|[0-9]|[. -])+/",
