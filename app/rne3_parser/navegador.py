@@ -37,7 +37,7 @@ class Navigator:
             EC.element_to_be_clickable((By.CSS_SELECTOR, boton['css_selector']))).click()
 
     @staticmethod
-    def _pagina_activa(driver, boton, num_retry_max=2, sleep=0.5):
+    def _pagina_activa(driver, boton, num_retry_max=10, sleep=0.5):
         while num_retry_max > 0:
             try:
                 num_retry_max -= 1

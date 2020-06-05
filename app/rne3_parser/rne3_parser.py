@@ -19,18 +19,17 @@ class RNE3parser(Navigator):
         self.web_url = rne3web['web_url']
         self.patron_programas_audios_re = rne3web['patron_programas_audios_re']
         self.boton_de_la_A_a_la_Z = rne3web['boton_de_la_A_a_la_Z']
-        self.boton_programas_next = rne3web['boton_programas_next']
-        self.boton_sesiones_next = rne3web['boton_sesiones_next']
+        self.boton_next = rne3web['boton_next']
         self.paginas = rne3web['paginas']
         self.lista_programas = rne3web['lista_programas']
         self.backup_file_path = backup_file_path
         self.informacion_programas = self._load()
 
     def _load(self):
-        pwd = os.getcwd()
-        if os.path.isfile(pwd + self.backup_file_path):
-            return pickle.load(open(pwd + self.backup_file_path, "rb"))
+        if os.path.isfile(self.backup_file_path):
+            return pickle.load(open(self.backup_file_path, "rb"))
         else:
+            print("New file generated...")
             return {}
 
     def _save_rne3_data(self):
@@ -38,13 +37,16 @@ class RNE3parser(Navigator):
         pickle.dump(self.informacion_programas, f)
         f.close()
 
-    def obtener_lista_programas(self):
+    def obtener_lista_programas(self, max_iteraciones=20):
         driver = self.launch_driver(self.web_url)
         self.presionar_boton(driver, self.boton_de_la_A_a_la_Z)
-        programas = self._extraer_programas(driver, self.lista_programas, self.patron_programas_audios_re)
-        for programa in programas:
-            if (self.informacion_programas is None) or (programa not in self.informacion_programas.keys()):
-                self.informacion_programas[programa] = programas[programa]
+        while max_iteraciones > 0:
+            programas = self._extraer_programas(driver, self.lista_programas, self.patron_programas_audios_re)
+            for programa in programas:
+                if (self.informacion_programas is None) or (programa not in self.informacion_programas.keys()):
+                    self.informacion_programas[programa] = programas[programa]
+            self.presionar_siguiente(driver, sleep=0.5)
+            max_iteraciones -= 1
         self._save_rne3_data()
         driver.close()
         return
@@ -70,15 +72,15 @@ class RNE3parser(Navigator):
             return {}
         return informacion
 
-    def obtener_sesiones(self, retransmision, sleep=0.5):
-        num_pagina = 0
+    def obtener_sesiones(self, retransmision, sleep=0.5, max_sessions=120):
         if 'sesiones' not in self.informacion_programas[retransmision].keys():
             self.informacion_programas[retransmision]['sesiones'] = {}
         self.informacion_programas[retransmision]['num_sesiones'] = len(self.informacion_programas[retransmision]['sesiones'])
         url_programa = self.informacion_programas[retransmision]['url']
         driver = self.launch_driver(url_programa)
-        print("\nProcesando: {0} \n Sesiones incluidas: ".format(retransmision))
-        while True:
+        print("\nProcesando: {0} con sesiones incluidas: {1}".format(retransmision, len(self.informacion_programas[retransmision]['sesiones'])))
+        pag_previa = 0
+        while max_sessions > 0:
             liTags = self.extraer_litags(driver.page_source)
             for Tag in liTags:
                 Tag.location_once_scrolled_into_view
@@ -93,20 +95,26 @@ class RNE3parser(Navigator):
                 print("{0}".format(len(self.informacion_programas[retransmision]['sesiones'].keys())), end="..", flush=True)
                 self.informacion_programas[retransmision]['num_sesiones'] = len(self.informacion_programas[retransmision]['sesiones'])
             try:
-                if num_pagina != self._pagina_activa(driver, self.paginas['css_selector']):
-                    num_pagina += 1
-                else:
+                pagina_activa = self._pagina_activa(driver, rne3web['paginas']['css_selector'])
+                if pagina_activa is None or pagina_activa == pag_previa:
                     break
-                self.presionar_boton(driver, self.boton_sesiones_next, timeout=200)
-                time.sleep(sleep)
-                html = driver.find_element_by_tag_name('html')
-                html.send_keys(Keys.PAGE_UP)
+                else:
+                    pag_previa = pagina_activa
+                self.presionar_siguiente(driver, sleep)
             except (StaleElementReferenceException, ElementNotInteractableException, TimeoutException, NoSuchElementException) as e:
-                print("\nCompletado!")
+                print(e)
                 break
+            max_sessions -= 1
+        print("\n   Completado! parseadas paginas: {0} y un total de {1} sesiones incluidas\n".format(pag_previa, len(self.informacion_programas[retransmision]['sesiones'])))
         self._save_rne3_data()
         driver.close()
         return
+
+    def presionar_siguiente(self, driver, sleep):
+        self.presionar_boton(driver, self.boton_next, timeout=200)
+        time.sleep(sleep)
+        html = driver.find_element_by_tag_name('html')
+        html.send_keys(Keys.PAGE_UP)
 
     def descargar_sesiones(self, dest_folder):
         for nombre in self.sesiones.keys():
@@ -119,9 +127,14 @@ if __name__ == "__main__":
 
     parseo_web = RNE3parser()
     parseo_web.obtener_lista_programas()
+    start_parsing = False
     for programa in parseo_web.informacion_programas.keys():
-        # if programa != 'circulos-excentricos': continue
-        parseo_web.obtener_sesiones(programa)
+        # if programa != 'musicas-posibles': continue
+        if programa == 'notas-confusas':
+            start_parsing = True
+            continue
+        if start_parsing:
+            parseo_web.obtener_sesiones(programa)
 
 
 

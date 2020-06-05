@@ -7,7 +7,8 @@ def query_results(rne3, string_busqueda):
     for programa in rne3.informacion_programas.keys():
         for sesion_name in rne3.informacion_programas[programa]['sesiones'].keys():
             sesion = rne3.informacion_programas[programa]['sesiones'][sesion_name]
-            if string_busqueda.lower() in sesion['descripcion'].lower():
+            if (string_busqueda.lower() in sesion['descripcion'].lower()) or\
+                    (string_busqueda.lower() in sesion_name.lower()):
                 if programa not in results.keys():
                     results[programa] = [sesion]
                 else:
